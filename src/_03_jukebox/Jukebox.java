@@ -5,6 +5,8 @@ package _03_jukebox;
  */
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -12,7 +14,10 @@ import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -20,16 +25,43 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 /*   If you don't have javazoom.jar in your project, you can download it from here: http://bit.ly/javazoom
  *   Right click your project and add it as a JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable {
-
+public class Jukebox implements Runnable, ActionListener {
+	JButton button1 = new JButton ();
+	JButton button2 = new JButton ();
+	JButton button3 = new JButton ();
+	JButton pause = new JButton ();
+	Song xenogenesis = new Song ("fatrat.mp3");
+	Song unity = new Song ("fatrat2.mp3");
+	Song windfall = new Song ("fatrat3.mp3");
     public void run() {
 
 		// 1. Find an mp3 on your computer or on the Internet.
 		// 2. Create a Song object for that mp3
 
 		// 3. Play the Song
-
-		/*
+JFrame frame = new JFrame ();
+JPanel panel = new JPanel ();
+frame.add(panel);
+frame.setVisible(true);
+button1.setSize(100, 100);
+button2.setSize(100, 100);
+button3.setSize(100, 100);
+pause.setSize(100, 100);
+button1.setText("Xenogenesis - Fat Rat");
+button2.setText("Unity - Fat Rat");
+button3.setText("WindFall - Fat Rat");
+pause.setText("Pause");
+frame.setTitle("Fat Rat Music Playlist");
+panel.add(button1);
+panel.add(button2);
+panel.add(button3);
+panel.add(pause);
+button1.addActionListener(this);
+button2.addActionListener(this);
+button3.addActionListener(this);
+pause.addActionListener(this);
+frame.pack();
+/*
 		 * 4. Create a user interface for your Jukebox so that the user can to
 		 * choose which song to play. You can use can use a different button for
 		 * each song, or a picture of the album cover. When the button or album
@@ -44,6 +76,31 @@ public class Jukebox implements Runnable {
 		URL imageURL = getClass().getResource(fileName);
 		Icon icon = new ImageIcon(imageURL);
 		return new JLabel(icon);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		JButton buttonclicked = (JButton) arg0.getSource();
+		if(buttonclicked == button1) {
+			xenogenesis.play();
+			unity.stop();
+			windfall.stop();
+		}else if(buttonclicked == button2) {
+			unity.play();
+			xenogenesis.stop();
+			windfall.stop();
+		}else if(buttonclicked == button3) {
+			windfall.play();
+			xenogenesis.stop();
+			unity.stop();
+		}else if (buttonclicked == pause) {
+			windfall.stop();
+			xenogenesis.stop();
+			unity.stop();
+		}
+		
 	}
 
 }
