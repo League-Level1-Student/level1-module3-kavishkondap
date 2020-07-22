@@ -5,6 +5,7 @@ package _04_magic_box;
  */
 
 
+import java.applet.AudioClip;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -54,6 +55,8 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		frame.addMouseListener(this);
+	
 	}
 
 	private void loadBackgroundImage() throws Exception {
@@ -79,7 +82,12 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		System.out.println(e.getX());
+		System.out.println(e.getY());
+		if ((e.getX()> 247) && (e.getX()<437) && (e.getY()>329) && (e.getY()<440)) {
+			MediaPalace.playMusicOnComputer ("src/fatrat.wav");
+		}
+	
 	}
 
 	@Override
